@@ -1,6 +1,34 @@
 import React from 'react';
 import { MapPinIcon, MailIcon } from '../utils/icons';
 
+// ─── Import images workshop depuis src/assets/ ────────────────────────────────
+/**
+ * Pour ajouter vos photos :
+ *   Section 1 → src/assets/workshop1/  (ex: 01-rapporteur.jpg  … max 4 images)
+ *   Section 2 → src/assets/workshop2/  (ex: 01-panel.jpg       … max 4 images)
+ * Nommez-les avec un préfixe numérique pour contrôler l'ordre.
+ */
+const w1Modules = import.meta.glob(
+  '../assets/workshop1/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}',
+  { eager: true }
+);
+const w2Modules = import.meta.glob(
+  '../assets/workshop2/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}',
+  { eager: true }
+);
+
+const buildImages = (modules) =>
+  Object.entries(modules)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .slice(0, 4)
+    .map(([path, mod]) => ({
+      src: mod.default,
+      alt: path.split('/').pop().replace(/^\d+-/, '').replace(/\.[^.]+$/, '').replace(/-/g, ' '),
+    }));
+
+const WORKSHOP1_IMAGES = buildImages(w1Modules);
+const WORKSHOP2_IMAGES = buildImages(w2Modules);
+
 // ─── SOCIAL LINKS ─────────────────────────────────────────────────────────────
 const SOCIAL_LINKS = [
   {
@@ -39,7 +67,7 @@ const SOCIAL_LINKS = [
   {
     label: 'Google Scholar',
     url: 'https://scholar.google.fr/citations?hl=fr&user=TAwRJhwAAAAJ',
-    color: 'hover:bg-red-500/20 hover:border-red-500/50',
+    color: 'hover:bg-blue-400/20 hover:border-blue-400/50',
     iconColor: '#4285F4',
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7">
@@ -49,15 +77,15 @@ const SOCIAL_LINKS = [
   },
 ];
 
-// ─── CV DATA ────────────────────────────────────────────────────────────────
+// ─── CV DATA ─────────────────────────────────────────────────────────────────
 const cv = {
   name: "Thierry MESSIE PONDIE, Ph.D.",
   title: "Energy, Environmental and Public Finance Economist",
   position: "Postdoctoral Researcher, University of Pretoria",
   avatar: "👨‍🎓",
-  emails: ["thierrypondie@gmail.com", "hkinda40@gmail.com"],
+  emails: ["thierrypondie@gmail.com"],
   phone: "(+237) 697 66 49 05 / 678 33 88 82",
-  location: "Pretoria, South Africa / Cameroon",
+  location: "Pretoria, South Africa ",
   summary:
     "Energy and public finance economist specializing in the intersection of natural resource governance, fiscal policy, and sustainable development — with strong expertise in econometrics and applied policy research in Sub-Saharan Africa. Combines high-level academic publications, international institutional experience, policy-oriented macro-fiscal expertise, and energy & environmental economics specialization.",
   researchFields: [
@@ -92,9 +120,8 @@ const cv = {
   ],
   education: [
     {
-      degree: "Ph.D. in Economics and International Development",
-      institution: "Université Clermont Auvergne (CERDI), France",
-      thesis: "Political Economy of Extractive Industries Governance and Sustainable Development Finance",
+      degree: "Postdoctoral in Public Economics, Energy Economics",
+      institution: "University of Pretoria, South Africa",
     },
     {
       degree: "Ph.D. in Energy and Environmental Economics",
@@ -160,9 +187,31 @@ const cv = {
     { lang: "French", level: "Fluent" },
     { lang: "Spanish", level: "Intermediate" },
   ],
+
+  // ── Texte 1 : Rapporteur 2025 ─────────────────────────────────────────────
+  workshop1: {
+    title: "Doctoral Research Workshop — Rapporteur (2025)",
+    icon: "🎓",
+    paragraphs: [
+      "In 2025, I had the honor of serving as a rapporteur at the Doctoral Research Workshop, a highly demanding academic experience that allowed me to fully mobilize my analytical, methodological, and critical skills. In this role, I evaluated research papers from diverse disciplinary backgrounds, with particular attention to scientific rigor, theoretical coherence, and empirical robustness. This responsibility required me to formulate constructive and strategic feedback aimed at enhancing the quality of the presented projects, thereby strengthening my ability to quickly identify the strengths, limitations, and future research perspectives of scholarly work.",
+      "In addition, I actively participated in a high-level panel discussion dedicated to energy and environmental issues. During this session, I contributed to in-depth discussions on contemporary challenges related to the energy transition, sustainability, and public policy. This engagement provided an opportunity to showcase my expertise on the interconnections between economics, energy, and the environment, while demonstrating my ability to communicate complex analyses in a clear, structured, and persuasive manner to both academic and professional audiences. It also reflected my capacity to engage in productive interdisciplinary dialogue with researchers and practitioners from diverse backgrounds.",
+      "These experiences highlight my positioning as a committed researcher capable of combining scientific excellence, critical thinking, and collaborative engagement. They attest to my mastery of international research standards, my ease in intellectually demanding environments, and my constant commitment to advancing knowledge. By integrating technical expertise, rigorous scientific evaluation skills, and strong communication abilities, I bring substantial added value to research initiatives, scientific committees, and high-level academic programs.",
+    ],
+  },
+
+  // ── Texte 2 : Version consolidée ─────────────────────────────────────────
+  workshop2: {
+    title: "Research Leadership & Policy Engagement",
+    icon: "🌍",
+    paragraphs: [
+      "In 2025, I served as Rapporteur at a Doctoral Research Workshop, a high-level academic platform bringing together emerging scholars from diverse disciplinary backgrounds. In this role, I conducted rigorous assessments of research projects, ensuring methodological soundness, theoretical coherence, and empirical credibility. My evaluations were designed not only to provide constructive feedback, but also to strategically strengthen the analytical positioning and policy relevance of the work presented. This experience further consolidated my ability to rapidly diagnose strengths, identify methodological gaps, and formulate actionable recommendations aligned with international research standards.",
+      "I also contributed to a high-level panel on energy and environmental policy, engaging in substantive discussions on energy transition, sustainability, and public finance implications. My intervention emphasized the economic dimensions of environmental policy design, the governance of natural resources, and the macro-fiscal challenges associated with climate and energy reforms. This engagement allowed me to articulate evidence-based insights in a structured and policy-oriented manner, demonstrating my capacity to bridge academic research and real-world policy debates.",
+      "Collectively, these experiences reinforce my profile as a research-driven economist committed to analytical rigor, interdisciplinary collaboration, and policy impact. They reflect my ability to operate effectively in intellectually demanding environments, contribute to strategic scientific dialogue, and support evidence-based decision-making processes. By combining strong evaluative judgment, technical expertise, and high-level communication skills, I bring substantive added value to research institutions, international organizations, and policy-oriented academic initiatives.",
+    ],
+  },
 };
 
-// ─── HELPERS ────────────────────────────────────────────────────────────────
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
 function Section({ title, icon, children, currentTheme }) {
   return (
     <div className={`rounded-2xl border ${currentTheme.border} ${currentTheme.cardBg} p-6 shadow-lg`}>
@@ -182,7 +231,46 @@ function Badge({ label, currentTheme }) {
   );
 }
 
-// ─── MAIN COMPONENT ─────────────────────────────────────────────────────────
+// Grille d'images avec fallback placeholder si dossier vide
+function ImageGrid({ images, currentTheme }) {
+  if (images.length === 0) return null;
+  return (
+    <div className={`mt-6 grid gap-3 ${
+      images.length === 1 ? 'grid-cols-1' :
+      images.length === 2 ? 'grid-cols-2' :
+      images.length === 3 ? 'grid-cols-3' :
+      'grid-cols-2 sm:grid-cols-4'
+    }`}>
+      {images.map((img, i) => (
+        <div key={i} className={`overflow-hidden rounded-2xl border ${currentTheme.border} aspect-square`}>
+          <img
+            src={img.src}
+            alt={img.alt}
+            className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Section texte + images (workshop)
+function WorkshopSection({ data, images, currentTheme, hl }) {
+  return (
+    <Section title={data.title} icon={data.icon} currentTheme={currentTheme}>
+      <div className="space-y-4">
+        {data.paragraphs.map((p, i) => (
+          <p key={i} className={`leading-relaxed text-justify ${currentTheme.textSecondary}`}>
+            {hl(p)}
+          </p>
+        ))}
+      </div>
+      <ImageGrid images={images} currentTheme={currentTheme} />
+    </Section>
+  );
+}
+
+// ─── COMPOSANT PRINCIPAL ─────────────────────────────────────────────────────
 function HomePage({ currentTheme, searchQuery }) {
   const hl = (text) => {
     if (!searchQuery || typeof text !== 'string') return text;
@@ -197,7 +285,7 @@ function HomePage({ currentTheme, searchQuery }) {
   return (
     <div className="space-y-6 animate-fade-in">
 
-      {/* HERO */}
+      {/* ── HERO ── */}
       <div className={`rounded-3xl border ${currentTheme.border} ${currentTheme.cardBg} p-8 shadow-2xl text-center`}>
         <div className="mb-5 flex justify-center">
           <div className={`flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br ${currentTheme.gradient} text-5xl shadow-2xl`}>
@@ -221,15 +309,14 @@ function HomePage({ currentTheme, searchQuery }) {
         </p>
 
         {/* SOCIAL LINKS */}
-        <div className="mt-6 flex justify-center gap-4">
+        <div className="mt-6 flex flex-wrap justify-center gap-4">
           {SOCIAL_LINKS.map((s, i) => (
             <a
               key={i}
               href={s.url}
-              // target="_blank"
+              target={s.url.startsWith('mailto') ? '_self' : '_blank'}
               rel="noopener noreferrer"
               title={s.label}
-              target={s.url.startsWith('mailto') ? '_self' : '_blank'}
               className={`group flex flex-col items-center gap-1.5 rounded-2xl border ${currentTheme.border} ${currentTheme.searchBg} px-5 py-4 transition-all duration-200 hover:scale-105 hover:shadow-lg ${s.color}`}
               style={{ color: s.iconColor }}
             >
@@ -242,14 +329,14 @@ function HomePage({ currentTheme, searchQuery }) {
         </div>
       </div>
 
-      {/* RESEARCH FIELDS */}
+      {/* ── RESEARCH FIELDS ── */}
       <Section title="Research Fields" icon="🔬" currentTheme={currentTheme}>
         <div className="flex flex-wrap gap-2">
           {cv.researchFields.map((f, i) => <Badge key={i} label={f} currentTheme={currentTheme} />)}
         </div>
       </Section>
 
-      {/* APPOINTMENTS */}
+      {/* ── APPOINTMENTS ── */}
       <Section title="Academic Appointments" icon="🏛️" currentTheme={currentTheme}>
         <div className="space-y-4">
           {cv.appointments.map((a, i) => (
@@ -269,7 +356,7 @@ function HomePage({ currentTheme, searchQuery }) {
         </div>
       </Section>
 
-      {/* EDUCATION */}
+      {/* ── EDUCATION ── */}
       <Section title="Education" icon="🎓" currentTheme={currentTheme}>
         <div className="space-y-3">
           {cv.education.map((e, i) => (
@@ -282,7 +369,7 @@ function HomePage({ currentTheme, searchQuery }) {
         </div>
       </Section>
 
-      {/* AFFILIATIONS + POLICY */}
+      {/* ── AFFILIATIONS + POLICY ── */}
       <div className="grid gap-6 md:grid-cols-2">
         <Section title="Research Affiliations" icon="🤝" currentTheme={currentTheme}>
           <ul className="space-y-2">
@@ -304,7 +391,7 @@ function HomePage({ currentTheme, searchQuery }) {
         </Section>
       </div>
 
-      {/* PUBLICATIONS */}
+      {/* ── PUBLICATIONS ── */}
       <Section title="Selected Peer-Reviewed Publications" icon="📚" currentTheme={currentTheme}>
         <p className={`mb-4 text-sm ${currentTheme.textSecondary}`}>Published in leading international journals.</p>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -331,7 +418,7 @@ function HomePage({ currentTheme, searchQuery }) {
         </div>
       </Section>
 
-      {/* METHODS + AWARDS + LANGUAGES */}
+      {/* ── METHODS + AWARDS + LANGUAGES ── */}
       <div className="grid gap-6 md:grid-cols-2">
         <Section title="Research Methods" icon="📊" currentTheme={currentTheme}>
           <div className="flex flex-wrap gap-2">
@@ -366,6 +453,22 @@ function HomePage({ currentTheme, searchQuery }) {
           </Section>
         </div>
       </div>
+
+      {/* ── WORKSHOP SECTION 1 ── */}
+      <WorkshopSection
+        data={cv.workshop1}
+        images={WORKSHOP1_IMAGES}
+        currentTheme={currentTheme}
+        hl={hl}
+      />
+
+      {/* ── WORKSHOP SECTION 2 ── */}
+      <WorkshopSection
+        data={cv.workshop2}
+        images={WORKSHOP2_IMAGES}
+        currentTheme={currentTheme}
+        hl={hl}
+      />
 
     </div>
   );
