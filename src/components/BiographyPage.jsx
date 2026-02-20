@@ -21,7 +21,7 @@ const BIO = {
   stats: [
     { value: '12+', label: 'Publications' },
     { value: '8',   label: 'Journals' },
-    { value: '1',   label: 'Ph.Ds' },
+    { value: '1',   label: 'Ph.D' },
     { value: '5+',  label: 'Institutions' },
   ],
 };

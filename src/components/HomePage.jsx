@@ -1,13 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapPinIcon, MailIcon } from '../utils/icons';
 
 // ─── Import images workshop depuis src/assets/ ────────────────────────────────
-/**
- * Pour ajouter vos photos :
- *   Section 1 → src/assets/workshop1/  (ex: 01-rapporteur.jpg  … max 4 images)
- *   Section 2 → src/assets/workshop2/  (ex: 01-panel.jpg       … max 4 images)
- * Nommez-les avec un préfixe numérique pour contrôler l'ordre.
- */
 const w1Modules = import.meta.glob(
   '../assets/workshop1/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}',
   { eager: true }
@@ -22,12 +16,28 @@ const buildImages = (modules) =>
     .sort(([a], [b]) => a.localeCompare(b))
     .slice(0, 4)
     .map(([path, mod]) => ({
-      src: mod.default,
+      src: mod.default ?? mod,
       alt: path.split('/').pop().replace(/^\d+-/, '').replace(/\.[^.]+$/, '').replace(/-/g, ' '),
     }));
 
-const WORKSHOP1_IMAGES = buildImages(w1Modules);
-const WORKSHOP2_IMAGES = buildImages(w2Modules);
+const builtW1 = buildImages(w1Modules);
+const builtW2 = buildImages(w2Modules);
+
+const PLACEHOLDER_W1 = [
+  { src: 'https://placehold.co/800x600/1e293b/94a3b8?text=Workshop+Photo+1', alt: 'Doctoral Research Workshop 2025' },
+  { src: 'https://placehold.co/800x600/1e293b/94a3b8?text=Workshop+Photo+2', alt: 'Research Evaluation Session' },
+  { src: 'https://placehold.co/800x600/1e293b/94a3b8?text=Workshop+Photo+3', alt: 'Panel Discussion' },
+  { src: 'https://placehold.co/800x600/1e293b/94a3b8?text=Workshop+Photo+4', alt: 'Academic Exchange' },
+];
+const PLACEHOLDER_W2 = [
+  { src: 'https://placehold.co/800x600/1e293b/94a3b8?text=Panel+Photo+1', alt: 'Energy Policy Panel 2025' },
+  { src: 'https://placehold.co/800x600/1e293b/94a3b8?text=Panel+Photo+2', alt: 'Environmental Economics Discussion' },
+  { src: 'https://placehold.co/800x600/1e293b/94a3b8?text=Panel+Photo+3', alt: 'Research Leadership' },
+  { src: 'https://placehold.co/800x600/1e293b/94a3b8?text=Panel+Photo+4', alt: 'Policy Engagement' },
+];
+
+const WORKSHOP1_IMAGES = builtW1.length > 0 ? builtW1 : PLACEHOLDER_W1;
+const WORKSHOP2_IMAGES = builtW2.length > 0 ? builtW2 : PLACEHOLDER_W2;
 
 // ─── SOCIAL LINKS ─────────────────────────────────────────────────────────────
 const SOCIAL_LINKS = [
@@ -85,7 +95,7 @@ const cv = {
   avatar: "👨‍🎓",
   emails: ["thierrypondie@gmail.com"],
   phone: "(+237) 697 66 49 05 / 678 33 88 82",
-  location: "Pretoria, South Africa ",
+  location: "Pretoria, South Africa",
   summary:
     "Energy and public finance economist specializing in the intersection of natural resource governance, fiscal policy, and sustainable development — with strong expertise in econometrics and applied policy research in Sub-Saharan Africa. Combines high-level academic publications, international institutional experience, policy-oriented macro-fiscal expertise, and energy & environmental economics specialization.",
   researchFields: [
@@ -187,26 +197,22 @@ const cv = {
     { lang: "French", level: "Fluent" },
     { lang: "Spanish", level: "Intermediate" },
   ],
-
-  // ── Texte 1 : Rapporteur 2025 ─────────────────────────────────────────────
   workshop1: {
     title: "Doctoral Research Workshop — Rapporteur (2025)",
     icon: "🎓",
     paragraphs: [
       "In 2025, I had the honor of serving as a rapporteur at the Doctoral Research Workshop, a highly demanding academic experience that allowed me to fully mobilize my analytical, methodological, and critical skills. In this role, I evaluated research papers from diverse disciplinary backgrounds, with particular attention to scientific rigor, theoretical coherence, and empirical robustness. This responsibility required me to formulate constructive and strategic feedback aimed at enhancing the quality of the presented projects, thereby strengthening my ability to quickly identify the strengths, limitations, and future research perspectives of scholarly work.",
-      "In addition, I actively participated in a high-level panel discussion dedicated to energy and environmental issues. During this session, I contributed to in-depth discussions on contemporary challenges related to the energy transition, sustainability, and public policy. This engagement provided an opportunity to showcase my expertise on the interconnections between economics, energy, and the environment, while demonstrating my ability to communicate complex analyses in a clear, structured, and persuasive manner to both academic and professional audiences. It also reflected my capacity to engage in productive interdisciplinary dialogue with researchers and practitioners from diverse backgrounds.",
-      "These experiences highlight my positioning as a committed researcher capable of combining scientific excellence, critical thinking, and collaborative engagement. They attest to my mastery of international research standards, my ease in intellectually demanding environments, and my constant commitment to advancing knowledge. By integrating technical expertise, rigorous scientific evaluation skills, and strong communication abilities, I bring substantial added value to research initiatives, scientific committees, and high-level academic programs.",
+      "In addition, I actively participated in a high-level panel discussion dedicated to energy and environmental issues. During this session, I contributed to in-depth discussions on contemporary challenges related to the energy transition, sustainability, and public policy. This engagement provided an opportunity to showcase my expertise on the interconnections between economics, energy, and the environment, while demonstrating my ability to communicate complex analyses in a clear, structured, and persuasive manner to both academic and professional audiences.",
+      "These experiences highlight my positioning as a committed researcher capable of combining scientific excellence, critical thinking, and collaborative engagement. They attest to my mastery of international research standards, my ease in intellectually demanding environments, and my constant commitment to advancing knowledge.",
     ],
   },
-
-  // ── Texte 2 : Version consolidée ─────────────────────────────────────────
   workshop2: {
     title: "Research Leadership & Policy Engagement",
     icon: "🌍",
     paragraphs: [
-      "In 2025, I served as Rapporteur at a Doctoral Research Workshop, a high-level academic platform bringing together emerging scholars from diverse disciplinary backgrounds. In this role, I conducted rigorous assessments of research projects, ensuring methodological soundness, theoretical coherence, and empirical credibility. My evaluations were designed not only to provide constructive feedback, but also to strategically strengthen the analytical positioning and policy relevance of the work presented. This experience further consolidated my ability to rapidly diagnose strengths, identify methodological gaps, and formulate actionable recommendations aligned with international research standards.",
-      "I also contributed to a high-level panel on energy and environmental policy, engaging in substantive discussions on energy transition, sustainability, and public finance implications. My intervention emphasized the economic dimensions of environmental policy design, the governance of natural resources, and the macro-fiscal challenges associated with climate and energy reforms. This engagement allowed me to articulate evidence-based insights in a structured and policy-oriented manner, demonstrating my capacity to bridge academic research and real-world policy debates.",
-      "Collectively, these experiences reinforce my profile as a research-driven economist committed to analytical rigor, interdisciplinary collaboration, and policy impact. They reflect my ability to operate effectively in intellectually demanding environments, contribute to strategic scientific dialogue, and support evidence-based decision-making processes. By combining strong evaluative judgment, technical expertise, and high-level communication skills, I bring substantive added value to research institutions, international organizations, and policy-oriented academic initiatives.",
+      "In 2025, I served as Rapporteur at a Doctoral Research Workshop, a high-level academic platform bringing together emerging scholars from diverse disciplinary backgrounds. In this role, I conducted rigorous assessments of research projects, ensuring methodological soundness, theoretical coherence, and empirical credibility. My evaluations were designed not only to provide constructive feedback, but also to strategically strengthen the analytical positioning and policy relevance of the work presented.",
+      "I also contributed to a high-level panel on energy and environmental policy, engaging in substantive discussions on energy transition, sustainability, and public finance implications. My intervention emphasized the economic dimensions of environmental policy design, the governance of natural resources, and the macro-fiscal challenges associated with climate and energy reforms.",
+      "Collectively, these experiences reinforce my profile as a research-driven economist committed to analytical rigor, interdisciplinary collaboration, and policy impact. They reflect my ability to operate effectively in intellectually demanding environments and support evidence-based decision-making processes.",
     ],
   },
 };
@@ -231,30 +237,222 @@ function Badge({ label, currentTheme }) {
   );
 }
 
-// Grille d'images avec fallback placeholder si dossier vide
-function ImageGrid({ images, currentTheme }) {
-  if (images.length === 0) return null;
+// ─── LIGHTBOX ─────────────────────────────────────────────────────────────────
+function Lightbox({ img, onClose }) {
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
   return (
-    <div className={`mt-6 grid gap-3 ${
-      images.length === 1 ? 'grid-cols-1' :
-      images.length === 2 ? 'grid-cols-2' :
-      images.length === 3 ? 'grid-cols-3' :
-      'grid-cols-2 sm:grid-cols-4'
-    }`}>
-      {images.map((img, i) => (
-        <div key={i} className={`overflow-hidden rounded-2xl border ${currentTheme.border} aspect-square`}>
-          <img
-            src={img.src}
-            alt={img.alt}
-            className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
-          />
-        </div>
-      ))}
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 99999,
+        backgroundColor: 'rgba(0,0,0,0.95)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '80px 20px 20px 20px', // padding-top pour passer sous la navbar
+      }}
+    >
+      {/* Bouton fermer */}
+      <button
+        onClick={onClose}
+        style={{
+          position: 'absolute',
+          top: '16px',
+          right: '16px',
+          width: '48px',
+          height: '48px',
+          borderRadius: '50%',
+          background: 'rgba(255,255,255,0.12)',
+          border: '1px solid rgba(255,255,255,0.2)',
+          color: 'white',
+          fontSize: '18px',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backdropFilter: 'blur(8px)',
+          transition: 'background 0.2s',
+        }}
+      >
+        ✕
+      </button>
+
+      {/* Image */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '16px',
+          maxWidth: '88vw',
+          maxHeight: 'calc(90vh - 80px)',
+        }}
+      >
+        <img
+          src={img.src}
+          alt={img.alt}
+          style={{
+            maxWidth: '88vw',
+            maxHeight: 'calc(85vh - 80px)',
+            width: 'auto',
+            height: 'auto',
+            borderRadius: '12px',
+            boxShadow: '0 32px 80px rgba(0,0,0,0.9)',
+            display: 'block',
+            objectFit: 'contain',
+          }}
+        />
+        {img.alt && (
+          <p style={{
+            color: 'rgba(255,255,255,0.7)',
+            fontSize: '13px',
+            textAlign: 'center',
+            letterSpacing: '0.03em',
+          }}>
+            📷 {img.alt}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
 
-// Section texte + images (workshop)
+// ─── IMAGE GRID avec lightbox ─────────────────────────────────────────────────
+function ImageGrid({ images, currentTheme }) {
+  const [selected, setSelected] = useState(null);
+
+  if (!images || images.length === 0) return null;
+
+  const gridClass =
+    images.length === 1 ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2';
+
+  return (
+    <>
+      <div className={`mt-8 grid gap-6 ${gridClass}`}>
+        {images.map((img, i) => (
+          <div
+            key={i}
+            onClick={() => setSelected(img)}
+            style={{ cursor: 'pointer' }}
+          >
+            {/* Carte photo pro */}
+            <div
+              style={{
+                position: 'relative',
+                overflow: 'hidden',
+                borderRadius: '16px',
+                height: '280px',
+                boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
+                transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.32)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 24px rgba(0,0,0,0.18)';
+              }}
+            >
+              <img
+                src={img.src}
+                alt={img.alt}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'top',
+                  display: 'block',
+                  transition: 'transform 0.5s ease',
+                }}
+                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
+                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+              />
+
+              {/* Dégradé bas + légende toujours visible */}
+              <div style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)',
+                padding: '32px 16px 14px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+              }}>
+                <span style={{ fontSize: '13px' }}>📷</span>
+                <p style={{
+                  color: 'rgba(255,255,255,0.92)',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  textTransform: 'capitalize',
+                  margin: 0,
+                }}>
+                  {img.alt}
+                </p>
+              </div>
+
+              {/* Overlay click — icône loupe centrée */}
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'rgba(0,0,0,0)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'background 0.3s',
+              }}
+                onMouseEnter={e => e.currentTarget.style.background = 'rgba(0,0,0,0.28)'}
+                onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,0,0,0)'}
+              >
+                <div style={{
+                  width: '52px',
+                  height: '52px',
+                  borderRadius: '50%',
+                  background: 'rgba(255,255,255,0.15)',
+                  backdropFilter: 'blur(8px)',
+                  border: '1px solid rgba(255,255,255,0.3)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '22px',
+                  opacity: 0,
+                  transition: 'opacity 0.3s',
+                }}
+                  onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+                  onMouseLeave={e => e.currentTarget.style.opacity = '0'}
+                >
+                  🔍
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {selected && <Lightbox img={selected} onClose={() => setSelected(null)} />}
+    </>
+  );
+}
+
+// ─── WORKSHOP SECTION ─────────────────────────────────────────────────────────
 function WorkshopSection({ data, images, currentTheme, hl }) {
   return (
     <Section title={data.title} icon={data.icon} currentTheme={currentTheme}>
@@ -307,8 +505,6 @@ function HomePage({ currentTheme, searchQuery }) {
         <p className={`mx-auto max-w-3xl text-base leading-relaxed ${currentTheme.textSecondary}`}>
           {hl(cv.summary)}
         </p>
-
-        {/* SOCIAL LINKS */}
         <div className="mt-6 flex flex-wrap justify-center gap-4">
           {SOCIAL_LINKS.map((s, i) => (
             <a
@@ -428,7 +624,6 @@ function HomePage({ currentTheme, searchQuery }) {
             <span className="font-semibold">Software:</span> {cv.software.join(' · ')}
           </p>
         </Section>
-
         <div className="space-y-6">
           <Section title="Awards" icon="🏆" currentTheme={currentTheme}>
             <ul className="space-y-2">
@@ -440,7 +635,6 @@ function HomePage({ currentTheme, searchQuery }) {
               ))}
             </ul>
           </Section>
-
           <Section title="Languages" icon="🌍" currentTheme={currentTheme}>
             <div className="flex flex-wrap gap-3">
               {cv.languages.map((l, i) => (
@@ -454,21 +648,11 @@ function HomePage({ currentTheme, searchQuery }) {
         </div>
       </div>
 
-      {/* ── WORKSHOP SECTION 1 ── */}
-      <WorkshopSection
-        data={cv.workshop1}
-        images={WORKSHOP1_IMAGES}
-        currentTheme={currentTheme}
-        hl={hl}
-      />
+      {/* ── WORKSHOP 1 ── */}
+      <WorkshopSection data={cv.workshop1} images={WORKSHOP1_IMAGES} currentTheme={currentTheme} hl={hl} />
 
-      {/* ── WORKSHOP SECTION 2 ── */}
-      <WorkshopSection
-        data={cv.workshop2}
-        images={WORKSHOP2_IMAGES}
-        currentTheme={currentTheme}
-        hl={hl}
-      />
+      {/* ── WORKSHOP 2 ── */}
+      <WorkshopSection data={cv.workshop2} images={WORKSHOP2_IMAGES} currentTheme={currentTheme} hl={hl} />
 
     </div>
   );
