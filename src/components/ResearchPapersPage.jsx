@@ -23,6 +23,19 @@ const PAPERS = [
     doi: 'https://doi.org/10.1016/j.jenvman.2025.128192',
     keywords: ['ESG', 'Green Finance', 'Sub-Saharan Africa', 'Investment'],
   },
+    // ── Energy Poverty & Private Sector ─────────────────────────────────────
+  {
+    id: 13,
+    category: 'energy',
+    title: 'Energy poverty and private sector development in Sub-Saharan Africa: The moderating role of governance',
+    authors: 'Messie Pondie, T. & Adjei',
+    journal: 'Renewable Energy',
+    year: 2026,
+    ref: '',
+    doi: 'https://doi.org/10.1016/j.renene.2026.125457',
+    // abstract: 'This study investigates the impact of energy poverty on private sector development in Sub-Saharan Africa, with governance as a moderating factor. Using panel data from 45 countries over 2000–2022 and advanced econometric techniques, we find that energy poverty significantly constrains private sector growth, with effects varying by development level. However, higher institutional quality—particularly the rule of law and control of corruption—mitigates these negative effects. These findings underscore the importance of combining improved energy access with institutional strengthening to support sustainable economic growth.',
+    keywords: ['Energy Poverty', 'Private Sector', 'Governance', 'Sub-Saharan Africa', 'Institutions'],
+  },
   {
     id: 2,
     category: 'esg',
