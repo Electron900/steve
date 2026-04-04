@@ -11,19 +11,8 @@ const CATEGORIES = [
 ];
 
 const PAPERS = [
-  // ── ESG & Green Finance ──────────────────────────────────────────────────
-  {
-    id: 1,
-    category: 'esg',
-    title: 'The weight of silent criteria: ESG score performance and investment attractiveness in Sub-Saharan Africa',
-    authors: 'Pondie, T. M., Berriche, A., & Routis, D. L.',
-    journal: 'Journal of Environmental Management',
-    year: 2026,
-    ref: 'Vol. 398, 128192',
-    doi: 'https://doi.org/10.1016/j.jenvman.2025.128192',
-    keywords: ['ESG', 'Green Finance', 'Sub-Saharan Africa', 'Investment'],
-  },
-    // ── Energy Poverty & Private Sector ─────────────────────────────────────
+
+     // ── Energy Poverty & Private Sector ─────────────────────────────────────
   {
     id: 13,
     category: 'energy',
@@ -36,6 +25,19 @@ const PAPERS = [
     // abstract: 'This study investigates the impact of energy poverty on private sector development in Sub-Saharan Africa, with governance as a moderating factor. Using panel data from 45 countries over 2000–2022 and advanced econometric techniques, we find that energy poverty significantly constrains private sector growth, with effects varying by development level. However, higher institutional quality—particularly the rule of law and control of corruption—mitigates these negative effects. These findings underscore the importance of combining improved energy access with institutional strengthening to support sustainable economic growth.',
     keywords: ['Energy Poverty', 'Private Sector', 'Governance', 'Sub-Saharan Africa', 'Institutions'],
   },
+  // ── ESG & Green Finance ──────────────────────────────────────────────────
+  {
+    id: 1,
+    category: 'esg',
+    title: 'The weight of silent criteria: ESG score performance and investment attractiveness in Sub-Saharan Africa',
+    authors: 'Pondie, T. M., Berriche, A., & Routis, D. L.',
+    journal: 'Journal of Environmental Management',
+    year: 2026,
+    ref: 'Vol. 398, 128192',
+    doi: 'https://doi.org/10.1016/j.jenvman.2025.128192',
+    keywords: ['ESG', 'Green Finance', 'Sub-Saharan Africa', 'Investment'],
+  },
+ 
   {
     id: 2,
     category: 'esg',
