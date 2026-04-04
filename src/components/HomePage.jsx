@@ -55,9 +55,9 @@ const cv = {
   title: "Energy, Environmental and Public Finance Economist",
   position: "Postdoctoral Researcher, University of Pretoria",
   avatar: "👨‍🎓",
-  emails: ["thierrypondie@gmail.com", "hkinda40@gmail.com"],
+  emails: ["thierrypondie@gmail.com"],
   phone: "(+237) 697 66 49 05 / 678 33 88 82",
-  location: "Pretoria, South Africa / Cameroon",
+  location: "Pretoria, South Africa ",
   summary:
     "Energy and public finance economist specializing in the intersection of natural resource governance, fiscal policy, and sustainable development — with strong expertise in econometrics and applied policy research in Sub-Saharan Africa. Combines high-level academic publications, international institutional experience, policy-oriented macro-fiscal expertise, and energy & environmental economics specialization.",
   researchFields: [
